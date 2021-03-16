@@ -1,8 +1,8 @@
 /**
- * The transaction class, defines the attribute of each transaction record within the card class.
+ * The Transaction class, defines the attribute of each transaction record within the card class.
  * @author andyli
  */
-public class transaction {
+public class Transaction {
 
     /**
      * A string that store the transaction amount of the transaction.
@@ -19,7 +19,7 @@ public class transaction {
      * @param amount The transacted amount of the transaction
      * @param time Timestamp of the transaction
      */
-    public transaction(String amount, String time) {
+    public Transaction(String amount, String time) {
         Time = time;
         Amount = amount;
     }

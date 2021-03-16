@@ -6,37 +6,42 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Wallet {
-    ArrayList<Payment> tools = new ArrayList<Payment>;
+    ArrayList<Payment> tools = new ArrayList<Payment>();
     public static void main(String[] args) {
         Wallet w = new Wallet();
-        w.go();
+        w.phaseOne();
     }
 
-    public static void go() {
+    public void phaseOne(){
         boolean flag = true;
+        String name,cardNo,password,phoneNo,accName;
+        Float creditLimit, balance;
         System.out.println("------------Phase 1: Initialization------------");
         while (flag) {
-            System.out.print("Initialize payment tool (Debit/Credit/FPS/Alipay):");
-            switch (readInput()) {
+            switch (readInput("Initialize payment tool (Debit/Credit/FPS/Alipay):")) {
                 case "Debit":
-                    String name = readInput("Initialize one debit card, Please input the owner name:");
-                    String cardNo = readInput("Please input the Card No:");
-                    String password = readInput("Please input the passwaord:");
-                    Float balance = Float.parseFloat(readInput("Please input balance:"));
+                    name = readInput("Initialize one debit card, Please input the owner name:");
+                    cardNo = readInput("Please input the Card No:");
+                    password = readInput("Please input the password:");
+                    balance = Float.parseFloat(readInput("Please input balance:"));
+                    tools.add(new DebitCard(name, cardNo, password, balance));
                     break;
                 case "Credit":
-                    String name = readInput("Initialize one Credit card, Please input the owner name:");
-                    String cardNo = readInput("Please input the Card No:");
-                    String creditLimit = readInput("Please input the creditLimit:");
-                    Float balance = 0;
+                    name = readInput("Initialize one Credit card, Please input the owner name:");
+                    cardNo = readInput("Please input the Card No:");
+                    creditLimit = Float.parseFloat(readInput("Please input the creditLimit:"));
+                    balance = 0.0f;
+                    tools.add(new CreditCard(name, cardNo, creditLimit));
                     break;
                 case "FPS":
-                    String phoneNo = readInput("Initialize FPS, Please input your phone number:");
-                    Float balance = Float.parseFloat(readInput("Please input balance:"));
+                    phoneNo = readInput("Initialize FPS, Please input your phone number:");
+                    balance = Float.parseFloat(readInput("Please input balance:"));
+                    tools.add(new FPS(phoneNo, balance));
                     break;
                 case "Alipay":
-                    String accName = readInput("Initialize Alipay, Please input your account name:");
-                    Float balance = Float.parseFloat(readInput("Please input balance:"));
+                    accName = readInput("Initialize Alipay, Please input your account name:");
+                    balance = Float.parseFloat(readInput("Please input balance:"));
+                    tools.add(new Alipay(accName, balance));
                     break;
                 case "pay":
                     flag = false;
@@ -46,8 +51,14 @@ public class Wallet {
                     break;
             }
         }
+        phaseTwo();
     }
+    public void phaseTwo(){
+        phaseThree();
+    }
+    public void phaseThree(){
 
+    }
     /**
      * Read the user input from the console
      * @return the user input as a String

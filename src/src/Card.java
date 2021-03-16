@@ -5,5 +5,5 @@ public abstract class Card implements Payment{
     String name;
     String cardNo;
     float balance;
-    ArrayList<transaction> records = new ArrayList<>();
+    ArrayList<Transaction> records = new ArrayList<>();
 }
