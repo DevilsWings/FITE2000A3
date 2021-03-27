@@ -5,4 +5,12 @@ public class Alipay extends MobilePay {
         this.accName = accName;
         this.balance = balance;
     }
+    @Override
+    public String getInfo() {
+        return String.format("– Alipay – account name: %s, balance: %.1f", accName, balance);
+    }
+    @Override
+    public String setReceiver() {
+        return Wallet.readInput("Receiver Alipay account name: ");
+    }
 }

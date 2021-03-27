@@ -12,7 +12,7 @@ public class Wallet {
         w.phaseOne();
     }
 
-    public void phaseOne(){
+    private void phaseOne(){
         boolean flag = true;
         String name,cardNo,password,phoneNo,accName;
         Float creditLimit, balance;
@@ -53,18 +53,49 @@ public class Wallet {
         }
         phaseTwo();
     }
-    public void phaseTwo(){
-        phaseThree();
+    private void listToolsStatus(){
+        ArrayList<String> curRecords;
+        for(Integer i = 1; i <= tools.size();i++){
+            System.out.println(i.toString() +" "+tools.get(i-1).getInfo());
+                if(tools.get(i-1) instanceof MobilePay){
+                    curRecords = ((MobilePay) tools.get(i-1)).records;
+                }else{
+                    curRecords = ((Card) tools.get(i-1)).records;
+                }
+            for(String j: curRecords)
+                System.out.println(j);
+        }
     }
-    public void phaseThree(){
+    private void phaseTwo(){
+        boolean flag = true;
+        String input;
+        Payment selected;
+        System.out.println("------------Phase 2: Pay------------\nHere are your payment tools:");
+        listToolsStatus();
+        while(true){
+            input = readInput("Please input the index to choose the payment method:");
+            if(input.equals("show"))
+                break;
+            selected = tools.get(Integer.parseInt(input)-1);
+            String transactionRecord = selected.pay(Float.parseFloat(readInput("Pay money $:")));
+            if(transactionRecord != null){
+                if(selected instanceof MobilePay){
+                    ((MobilePay) selected).records.add(transactionRecord);
+                }else{
+                    ((Card) selected).records.add(transactionRecord);
+                }
+                System.out.println("Payment Successful!\n"+transactionRecord);
+            }
+        }
+        listToolsStatus();
+    }
 
-    }
     /**
      * Read the user input from the console
      * @return the user input as a String
      */
     public static String readInput(String printText) {
-        System.out.print(printText);
+        System.out.print(printText+" ");
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         String inputLine = null;
         try {
@@ -82,7 +113,7 @@ public class Wallet {
      * You can use this method to get current system time as a String
      * @return a String for the system time in specific format.
      */
-    public String getCurrentTime() {
+    public static String getCurrentTime() {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd '-' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
         //System.out.println(formatter.format(date));

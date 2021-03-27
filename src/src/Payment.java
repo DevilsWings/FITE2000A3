@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+
 public interface Payment {
-    //public Transaction pay();
+
+    public String pay(float amount);
     //public Float checkBalance();
+    public String getInfo();
 }
