@@ -4,9 +4,17 @@ import java.io.InputStreamReader;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+/**
+ * The Wallet class, used for implementing a e-wallet that contains payment methods and the user interface.
+ *
+ * @author Li Cheuk Hin
+ */
 public class Wallet {
-    ArrayList<Payment> tools = new ArrayList<Payment>();
+
+    /**
+     * An ArrayList that stores payment tools that implements the Payment interface.
+     */
+    ArrayList<Payment> tools = new ArrayList<>();
     public static void main(String[] args) {
         Wallet w = new Wallet();
         w.phaseOne();
@@ -30,7 +38,6 @@ public class Wallet {
                     name = readInput("Initialize one Credit card, Please input the owner name:");
                     cardNo = readInput("Please input the Card No:");
                     creditLimit = Float.parseFloat(readInput("Please input the creditLimit:"));
-                    balance = 0.0f;
                     tools.add(new CreditCard(name, cardNo, creditLimit));
                     break;
                 case "FPS":
